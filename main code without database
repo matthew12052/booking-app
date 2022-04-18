@@ -1,0 +1,322 @@
+from tkinter import *
+from tkinter import ttk
+
+
+class UserAccount:
+
+     def __init__(self, firstName, lastName, joined, age, country, username, password):
+         self.first = firstName
+         self.last = lastName
+         self.date = joined
+         self.age = age
+         self.country = country
+         self.Username= username
+         self.password = password
+         self.email = firstName + '.' + lastName + '@company.com'
+
+
+
+
+
+def register_user():
+    username_info = username.get()
+    password_info = password.get()
+    email_info = email.get()
+
+
+    file = open(username_info,"w")
+    file.write(username_info+"/n")
+    file.write(password_info)
+    file.close()
+
+    username_entry.delete(0, END)
+    password_entry.delete(0, END)
+
+    Label(screen1, text = "You have been successfully registered", fg = "blue" ,font = ("calibri", 12)).pack()
+
+def login_verify():
+    username1 = VerifyUsername.get()
+    password1 = VerifyPassword.get()
+    username_entry1.delete(0, END)
+    password_entry1.delete(0, END)
+
+
+def register():
+    screen1 = Toplevel(screen)
+    screen1.title("Register")
+    screen1.geometry("540x600")
+
+    global username
+    global password
+    global email
+    global age
+    global country
+    global firstName
+    global lastName
+
+    global username_entry
+    global password_entry
+    global email_entry
+    global age_entry
+    global country_entry
+    global firstName_entry
+    global lastName_entry
+
+    firstName = StringVar()
+    lastName = StringVar()
+    username = StringVar()
+    password = StringVar()
+    email = StringVar()
+    age = StringVar()# I do not think this is supposed to be a string variable
+    country = StringVar()
+
+
+
+
+    Label(screen1, text = "Please enter email, username and password below")
+    Label(screen1, text = "").pack()
+    Label(screen1, text = "Email *").pack()
+    email_entry = Entry(screen1, textvariable = email)
+    email_entry.pack()
+    Label(screen1, text = "").pack()
+    Label(screen1, text = "Username * ").pack()
+    username_entry = Entry(screen1, textvariable = username)
+    username_entry.pack()
+    Label(screen1, text = "Password * ").pack()
+    password_entry = Entry(screen1, textvariable = password)
+    password_entry.pack()
+    Label(screen1, text = "").pack()
+    Label(screen1, text = "age * ").pack()
+    age_entry = Entry(screen1, textvariable = age)
+    age_entry.pack()
+    Label(screen1, text = "Country * ").pack()
+    country_entry = Entry(screen1, textvariable = country)
+    country_entry.pack()
+
+    Label(screen1, text = "First Name * ").pack()
+    firstName_entry = Entry(screen1, textvariable = firstName)
+    firstName_entry.pack()
+
+    Label(screen1, text = "Last Name * ").pack()
+    lastName_entry = Entry(screen1, textvariable = lastName)
+    lastName_entry.pack()
+
+
+    Label(screen1, text = "").pack()
+
+
+    Button(screen1, text = "Register", width = 10, height = 1, command = Homepage).pack()
+    account =UserAccount(firstName, lastName, joined, age, country, username, password)
+
+
+
+def login():
+    print("Login session started")
+    global screen2
+    screen2 =  Toplevel(screen)
+    screen2.title("Login")
+    screen2.geometry("640x430")
+    Label(screen2, text = "Please enter username and password below to login")
+    Label(screen2, text = "").pack()
+
+    global VerifyUsername
+    global VerifyPassword
+
+    VerifyUsername = StringVar()
+    VerifyPassword = StringVar()
+
+    global username_entry1
+    global password_entry1
+
+    Label(screen2, text = "Username * ").pack()
+    username_entry1 = Entry(screen2, textvariable = VerifyUsername)
+    username_entry1.pack()
+
+    Label(screen2, text = "Password * ").pack()
+    password_entry1 = Entry(screen2, textvariable = VerifyPassword)
+    password_entry1.pack()
+    Label(screen2, text = "").pack()
+    Button(screen2,text = "Login", width = 12, height = 2, command = Homepage).pack()
+
+def Homepage():
+    print("Homepage session started")
+    global screen3
+    screen3 =  Toplevel(screen)
+    screen3.title("Home")
+    screen3.geometry("800x500")
+
+    Label(screen3,text = "The scheduling app", bg = "red", width = "300", height = "2", font = ("Calibri" ,14)).pack()
+    Label(screen3,text = "").pack()
+    Curr = Button(screen3,text = "Current bookings", height = "2", width = "30", bg = "green")
+    Label(text = "").pack()
+    Book =Button(screen3,text = "Bookings", height = "2", width = "30", bg = "green", command = Booking)
+    Curr.place(x=40, y=75)
+    Book.place(x=540, y=75)
+
+
+
+def Booking():
+    print("Booking session started")
+    global screen4
+    screen4 = Toplevel(screen)
+    screen4.title("Appointments")
+    screen4.geometry("600x500")
+    Label(screen4,text = "Please select a date, time and a user", bg = "cyan", width = "300", height = "1", font = ("Calibri" ,14)).pack()
+    Label(screen4, text = "").pack
+
+    Day=Label(screen4, text = "Day", bg = "yellow", width = "10", height = "1",)
+    Day.place(x=80, y=32)
+    # Change the label text
+    def show():
+        label.config( text = clicked.get() )
+        label.place(x=70, y=110)
+
+    # Dropdown menu options
+    options = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+    ]
+
+    # datatype of menu text
+    clicked = StringVar()
+
+    # initial menu text
+    clicked.set( "Monday" )
+
+    # Create Dropdown menu
+    drop = OptionMenu( screen4 , clicked , *options )
+    drop.place(x=70, y = 50 )
+
+
+    # Create button, it will change label text
+    confirm = Button( screen4 , text = "Click here" , command = show )
+    confirm.place(x=70, y=80)
+
+
+
+    # Create Label
+    label = Label( screen4 , text = " " )
+    label.pack()
+#iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+    Time=Label(screen4, text = "Time", bg = "yellow", width = "10", height = "1",)
+    Time.place(x=470, y=32)
+    # Change the label text
+    def show():
+        label2.config( text = clicked2.get() )
+        label2.place(x=470, y=110)
+
+    # Dropdown menu options
+    options2 = [
+    "00:00",
+    "00:30",
+    "01:00",
+    "01:30",
+    "02:00",
+    "02:30",
+    "03:00",
+    "03:30",
+    "04:00",
+    "04:30",
+    "05:00",
+    "05:30",
+    "06:00",
+    "06:30",
+    "07:00",
+    "07:30",
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
+    "21:30",
+    "22:00",
+    "22:30",
+    "23:00",
+    "23:30",
+
+
+    ]
+
+    # datatype of menu text
+    clicked2 = StringVar()
+
+    # initial menu text
+    clicked2.set( "00:00" )
+
+    # Create Dropdown menu
+    drop = OptionMenu( screen4 , clicked2 , *options2 )
+    drop.place(x=470, y = 50 )
+    #scrollbar = ttk.Scrollbar(screen4, orient='vertical', command=Time.yview)
+    #scrollbar.grid(row=0, column=1, sticky='ns')
+
+
+    # Create button, it will change label text
+    confirm2 = Button( screen4 , text = "Click here" , command = show )
+    confirm2.place(x=470, y=80)
+
+
+    # Create Label
+    label2 = Label( screen4 , text = " " )
+    label2.pack()
+    #here i want to do a calender like function to set the date by default, the day the person runs the program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+def main_screen():
+    global screen
+    screen = Tk()
+    screen.geometry("600x450")#this is the size of the window
+    #bg = PhotoImage(file = "images/clock image for nea.jpg")
+    #my_label = Label(screen, image = bg)
+    #my_label.place(x=0, y=0, relwidth = 1, relheight = 1)
+    screen.title("The Online Booking Service")#the title of the window is called "the online booking service"
+
+    Label(text = "Welcome to BookNow", bg = "purple", width = "300", height = "2", font = ("Calibri",13)).pack()#this is the title of the page
+    Label(text = "").pack()#a space between the title and the buttons
+    log = Button(screen,text = "Login", height = "2", width = "30", command = login)#a button made for for the login ."command" function makes it redirect to desired page when clicked
+    Label(text = "").pack()#another space
+    reg =Button(screen,text = "Register", height = "2", width = "30", command = register)#a button made for the Register function.
+    log.place(x=70, y=50)#this is the position of the buttons
+    reg.place(x=290, y=50)
+
+    screen.mainloop()
+
+
+main_screen()
